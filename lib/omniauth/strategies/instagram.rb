@@ -14,23 +14,14 @@ module OmniAuth
       def request_phase
         options[:scope] ||= 'user_profile,user_media'
         options[:response_type] ||= 'code'
-        options[:enforce_signed_requests] ||= true
+        options[:enforce_signed_requests] ||= false
         options[:extra_data] ||= true
         super
       end
 
-      uid { raw_info['user_id'] }
+      uid { raw_info['id'] }
 
-      info do
-        {
-          'nickname' => raw_info['username'],
-          'name'     => raw_info['full_name'],
-          'image'    => raw_info['profile_picture'],
-          'bio'      => raw_info['bio'],
-          'website'  => raw_info['website'],
-          'is_business' => raw_info['is_business']
-        }
-      end
+      info { raw_info }
 
       extra do
         hash = {}
@@ -45,7 +36,7 @@ module OmniAuth
           access_token.options[:mode] = :query
           access_token.options[:param_name] = 'access_token'
           params['sig'] = generate_sig(endpoint, 'access_token' => access_token.token) if options[:enforce_signed_requests]
-          @data ||= access_token.get("#{endpoint}?fields=account_type,id,media_count,username", params: params).parsed['data'] || {}
+          @data ||= access_token.get("#{endpoint}?fields=account_type,id,media_count,username", params: params).parsed
         else
           @data ||= access_token.params['user']
         end
