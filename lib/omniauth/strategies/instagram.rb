@@ -41,11 +41,11 @@ module OmniAuth
       def raw_info
         if options[:extra_data]
           endpoint = '/me'
-          params = { fields: 'account_type,id,media_count,username' }
+          params = {}
           access_token.options[:mode] = :query
           access_token.options[:param_name] = 'access_token'
           params['sig'] = generate_sig(endpoint, 'access_token' => access_token.token) if options[:enforce_signed_requests]
-          @data ||= access_token.get("#{endpoint}", params: params).parsed['data'] || {}
+          @data ||= access_token.get("#{endpoint}?fields=account_type,id,media_count,username", params: params).parsed['data'] || {}
         else
           @data ||= access_token.params['user']
         end
