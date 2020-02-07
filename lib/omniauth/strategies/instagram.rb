@@ -19,7 +19,7 @@ module OmniAuth
         super
       end
 
-      uid { raw_info['id'] }
+      uid { raw_info['user_id'] }
 
       info do
         {
