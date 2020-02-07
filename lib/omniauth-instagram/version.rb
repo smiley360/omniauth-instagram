@@ -1,5 +1,5 @@
 module OmniAuth
   module Instagram
-    VERSION = '2.0.7'.freeze
+    VERSION = '2.0.9'.freeze
   end
 end
