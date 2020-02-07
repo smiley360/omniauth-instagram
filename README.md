@@ -1,18 +1,20 @@
-# OmniAuth Instagram
+# OmniAuth Instagram Basic Display
 
 This is the unofficial OmniAuth strategy for authenticating to Instagram. To
 use it, you'll need to sign up for an OAuth2 Application ID and Secret
-on the [Instagram Developer website](http://instagram.com/developer/).
+on the [Facebook Developer website](https://developers.facebook.com/).
 
 ## Basic Usage
 
     use OmniAuth::Builder do
-      provider :instagram, ENV['INSTAGRAM_ID'], ENV['INSTAGRAM_SECRET'], scope: 'basic+media+public_content+follower_list+comments+relationships+likes'
+      provider :instagram, 
+        ENV['INSTAGRAM_ID'], 
+        ENV['INSTAGRAM_SECRET'], 
+        scope: 'user_profile,user_media'
     end
 
 ## Notes:
-- For more information on scopes: https://www.instagram.com/developer/authorization/
-- Instagram has started enforcing signed requests for its API. If you have enabled `Enforce signed requests` in your app then, you can pass `enforce_signed_requests: true` in the above configuration. More info: https://instagram.com/developer/secure-api-requests/
+- For more information on scopes: https://developers.facebook.com/docs/instagram-basic-display-api/guides/getting-access-tokens-and-permissions
 
 ## License
 

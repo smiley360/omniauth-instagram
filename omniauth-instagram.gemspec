@@ -3,11 +3,11 @@
 require File.expand_path('../lib/omniauth-instagram/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.authors       = ['Mihai Anca']
-  gem.email         = ['mihai@mihaia.com']
-  gem.description   = 'OmniAuth strategy for Instagram.'
-  gem.summary       = 'OmniAuth strategy for Instagram.'
-  gem.homepage      = 'https://github.com/ropiku/omniauth-instagram'
+  gem.authors       = ['Mihai Anca', 'AstraL']
+  gem.email         = ['sawyer126@gmail.com']
+  gem.description   = 'OmniAuth strategy for Instagram Basic Display.'
+  gem.summary       = 'OmniAuth strategy for Instagram Basic Display.'
+  gem.homepage      = 'https://github.com/milestep/omniauth-instagram'
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
   gem.files         = `git ls-files`.split("\n")
