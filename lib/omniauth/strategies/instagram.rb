@@ -31,9 +31,8 @@ module OmniAuth
 
         # Change short-lived token for long-lived token
         exchange_endpoint = '/access_token'
-        @token ||= access_token.get("#{exchange_endpoint}?grant_type=ig_exchange_token&client_secret=#{options.authorize_params}").parsed
+        @token ||= access_token.get("#{exchange_endpoint}?grant_type=ig_exchange_token&client_secret=#{options.authorize_params[1]}").parsed
 
-        puts options.authorize_params
         @data.token = @token.access_token
         @data.expires = true
         @data.expires_at = @token.expires_in
