@@ -11,9 +11,7 @@ module OmniAuth
              token_url: 'https://api.instagram.com/oauth/access_token'
 
       credentials do
-        hash = {token: exchange_token['access_token']}
-        hash["expires_at"] = exchange_token['expires_in']
-        hash["expires"] = true
+        hash = {token: exchange_token['access_token'], expires_at: exchange_token['expires_in'], expires: true }
         hash
       end
 
