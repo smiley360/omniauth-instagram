@@ -33,8 +33,9 @@ module OmniAuth
 
       def exchange_token
         opt = "grant_type=ig_exchange_token&client_secret=#{options.client_secret}"
+        access_token.options[:param_name] = 'access_token'
 
-        @token ||= access_token.get('/access_token', opt).parsed
+        @token ||= access_token.get("/access_token?#{opt}").parsed
       end
 
       def raw_info
