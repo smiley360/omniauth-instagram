@@ -44,6 +44,7 @@ module OmniAuth
       def exchange_options
         params = { grant_type: 'ig_exchange_token' }
         params.merge!({ client_secret: options.client_secret })
+        params.merge!({ access_token: access_token.token })
 
         { params: params }
       end
