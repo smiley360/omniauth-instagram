@@ -11,7 +11,7 @@ module OmniAuth
              token_url: 'https://api.instagram.com/oauth/access_token'
 
       credentials do
-        hash = {token: exchange_token['access_token'], expires_at: exchange_token['expires_in'], expires: true }
+        hash = { token: long_token['access_token'], expires_at: long_token['expires_in'], expires: true }
         hash
       end
 
@@ -32,17 +32,17 @@ module OmniAuth
       def raw_info
         endpoint = '/me'
         fields = 'account_type,id,media_count,username'
-        @data ||= access_token.get("#{endpoint}?fields=#{fields}").parsed
+        @raw_info ||= access_token.get("#{endpoint}?fields=#{fields}").parsed
       end
 
-      def exchange_token
-        @token ||= access_token.get('/access_token', exchange_options).parsed || {}
+      def long_token
+        @long_token ||= access_token.get('/access_token', exchange_options).parsed || {}
       end
 
       def exchange_options
         params = { grant_type: 'ig_exchange_token' }
-        params.merge!({ client_secret: options.client_secret })
-        params.merge!({ access_token: access_token.token })
+        params.merge!(client_secret: options.client_secret)
+        params.merge!(access_token: access_token.token)
 
         { params: params }
       end

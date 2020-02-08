@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 gem 'rake'
 
 group :development do
-  gem 'rubocop', '>= 0.48.1'
+  gem 'rubocop'
 end
 
 group :test do
@@ -11,6 +11,7 @@ group :test do
   gem 'rack-test'
   gem 'rspec', '~> 3.6.0' # '~> 3.6.0'
   gem 'simplecov', require: false
+  gem 'webmock'
 end
 
 gemspec
