@@ -3,10 +3,19 @@ require 'omniauth-oauth2'
 module OmniAuth
   module Strategies
     class Instagram < OmniAuth::Strategies::OAuth2
+      option :name, 'instagram'
+
       option :client_options,
              site: 'https://graph.instagram.com',
              authorize_url: 'https://api.instagram.com/oauth/authorize',
              token_url: 'https://api.instagram.com/oauth/access_token'
+
+      credentials do
+        hash = {token: exchange_token['access_token']}
+        hash["expires_at"] = exchange_token['expires_in']
+        hash["expires"] = true
+        hash
+      end
 
       def callback_url
         full_host + script_name + callback_path
@@ -22,19 +31,18 @@ module OmniAuth
 
       info { raw_info }
 
+      def exchange_token
+        exchange_options = {
+            grant_type: 'ig_exchange_token',
+            client_secret: options.client_secret
+        }
+        @token ||= access_token.get('/access_token', exchange_options).parsed
+      end
+
       def raw_info
         endpoint = '/me'
         fields = 'account_type,id,media_count,username'
         @data ||= access_token.get("#{endpoint}?fields=#{fields}").parsed
-
-        # Change short-lived token for long-lived token
-        exchange_endpoint = '/access_token'
-        @token ||= access_token.get("#{exchange_endpoint}?grant_type=ig_exchange_token&client_secret=#{options[:client_secret]}&access_token=#{@data.token}").parsed
-        @data.token = @token.access_token
-        @data.expires = true
-        @data.expires_at = @token.expires_in
-
-        @data
       end
     end
   end
